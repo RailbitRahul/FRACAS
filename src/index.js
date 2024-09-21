@@ -16,7 +16,7 @@ import 'assets/third-party/apex-chart.css';
 import 'assets/third-party/react-table.css';
 
 // load mock apis
-import '_api';
+//import '_api';
 
 // project import
 import App from './App';

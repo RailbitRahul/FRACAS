@@ -1,3 +1,4 @@
+/* eslint-disable */
 import PropTypes from 'prop-types';
 import { createContext, useEffect, useReducer } from 'react';
 
@@ -22,30 +23,36 @@ const initialState = {
   user: null
 };
 
-const verifyToken = (serviceToken) => {
-  if (!serviceToken) {
+const verifyToken = (token) => {
+  if (!token) {
     return false;
   }
-  const decoded = jwtDecode(serviceToken);
+  const decoded = jwtDecode(token);
   /**
    * Property 'exp' does not exist on type '<T = unknown>(token: string, options?: JwtDecodeOptions | undefined) => T'.
    */
   return decoded.exp > Date.now() / 1000;
 };
 
-const setSession = (serviceToken) => {
-  if (serviceToken) {
-    localStorage.setItem('serviceToken', serviceToken);
-    axios.defaults.headers.common.Authorization = `Bearer ${serviceToken}`;
+const setSession = (token) => {
+  if (token) {
+    localStorage.setItem('token', token);
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
   } else {
-    localStorage.removeItem('serviceToken');
+    localStorage.removeItem('token');
     delete axios.defaults.headers.common.Authorization;
   }
 };
 
 // ==============================|| JWT CONTEXT & PROVIDER ||============================== //
 
-const JWTContext = createContext(null);
+const JWTContext = createContext({
+  ...initialState,
+  method : 'JWT',
+  login: () => Promise.resolve(),
+  login: () => {},
+  register: () => Promise.resolve(),
+});
 
 export const JWTProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState);
@@ -53,16 +60,18 @@ export const JWTProvider = ({ children }) => {
   useEffect(() => {
     const init = async () => {
       try {
-        const serviceToken = window.localStorage.getItem('serviceToken');
-        if (serviceToken && verifyToken(serviceToken)) {
-          setSession(serviceToken);
-          const response = await axios.get('/api/account/me');
-          const { user } = response.data;
+        const token = window.localStorage.getItem('token');
+          debugger;
+        if (token && verifyToken(token)) {
+          setSession(token);
+        //  const response = await axios.post('/login/');
+      //  const user = window.localStorage.getItem('user');
+        //  const { user } = window.localStorage.getItem('user');
           dispatch({
             type: LOGIN,
             payload: {
-              isLoggedIn: true,
-              user
+              isLoggedIn: true
+            
             }
           });
         } else {
@@ -81,10 +90,11 @@ export const JWTProvider = ({ children }) => {
     init();
   }, []);
 
-  const login = async (email, password) => {
-    const response = await axios.post('/api/account/login', { email, password });
-    const { serviceToken, user } = response.data;
-    setSession(serviceToken);
+  const login = async (username, password) => {
+    const response = await axios.post('/login/', { username, password });
+    debugger;
+    const { token, user } = response.data;
+    setSession(token);
     dispatch({
       type: LOGIN,
       payload: {
@@ -135,7 +145,7 @@ export const JWTProvider = ({ children }) => {
     return <Loader />;
   }
 
-  return <JWTContext.Provider value={{ ...state, login, logout, register, resetPassword, updateProfile }}>{children}</JWTContext.Provider>;
+  return <JWTContext.Provider value={{ ...state, method: 'JWT',login, logout, register, resetPassword, updateProfile }}>{children}</JWTContext.Provider>;
 };
 
 JWTProvider.propTypes = {
