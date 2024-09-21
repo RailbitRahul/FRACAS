@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useMemo } from 'react';
 
 // material-ui
@@ -33,13 +34,13 @@ const HeaderContent = () => {
     <>
       {menuOrientation === LAYOUT_CONST.HORIZONTAL_LAYOUT && !downLG && <DrawerHeader open={true} />}
       {!downLG && <Search />}
-      {!downLG && megaMenu}
+      {/* {!downLG && megaMenu} */}
       {!downLG && localization}
       {downLG && <Box sx={{ width: '100%', ml: 1 }} />}
 
       <Notification />
-      <Message />
-      <Customization />
+      {/* <Message /> */}
+      {/* <Customization /> */}
       {!downLG && <Profile />}
       {downLG && <MobileSection />}
     </>

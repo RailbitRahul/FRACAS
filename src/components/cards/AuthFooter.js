@@ -10,18 +10,18 @@ const AuthFooter = () => {
     <Container maxWidth="xl">
       <Stack
         direction={matchDownSM ? 'column' : 'row'}
-        justifyContent={matchDownSM ? 'center' : 'space-between'}
+        justifyContent={matchDownSM ? 'center' : 'center'}
         spacing={2}
         textAlign={matchDownSM ? 'center' : 'inherit'}
       >
-        <Typography variant="subtitle2" color="secondary" component="span">
-          This site is protected by{' '}
-          <Typography component={Link} variant="subtitle2" href="#mantis-privacy" target="_blank" underline="hover">
-            Privacy Policy
+        <Typography variant="subtitle1" color="secondary" component="span">
+          ©2024 - Developed by{' '}
+          <Typography component={Link} variant="subtitle1" href="https://railbit.in/" target="_blank" underline="hover">
+            Railbit Engineers Pvt. Ltd.
           </Typography>
         </Typography>
 
-        <Stack direction={matchDownSM ? 'column' : 'row'} spacing={matchDownSM ? 1 : 3} textAlign={matchDownSM ? 'center' : 'inherit'}>
+        {/* <Stack direction={matchDownSM ? 'column' : 'row'} spacing={matchDownSM ? 1 : 3} textAlign={matchDownSM ? 'center' : 'inherit'}>
           <Typography
             variant="subtitle2"
             color="secondary"
@@ -52,7 +52,7 @@ const AuthFooter = () => {
           >
             CA Privacy Notice
           </Typography>
-        </Stack>
+        </Stack> */}
       </Stack>
     </Container>
   );
