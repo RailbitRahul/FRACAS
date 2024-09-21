@@ -67,8 +67,9 @@ const AuthLogin = () => {
           submit: null
         }}
         validationSchema={Yup.object().shape({
-          email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-          password: Yup.string().max(255).required('Password is required')
+          //email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
+          email: Yup.string().max(35).required('Username is required'),
+          password: Yup.string().max(10).required('Password is required')
         })}
         onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
           try {
@@ -108,7 +109,7 @@ const AuthLogin = () => {
                     name="email"
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    placeholder="Enter email address"
+                    placeholder="Enter username"
                     fullWidth
                     error={Boolean(touched.email && errors.email)}
                   />
