@@ -9,6 +9,8 @@ import AuthGuard from 'utils/route-guard/AuthGuard';
 // render - dashboard
 const DashboardDefault = Loadable(lazy(() => import('pages/dashboard/default')));
 const DashboardAnalytics = Loadable(lazy(() => import('pages/dashboard/analytics')));
+const KavachDashboard = Loadable(lazy(() => import('pages/dashboard/kavachDashboard')));
+const IncidentDashboard = Loadable(lazy(() => import('pages/dashboard/incidentDashboard')));
 
 // render - widget
 const WidgetStatistics = Loadable(lazy(() => import('pages/widget/statistics')));
@@ -129,6 +131,14 @@ const MainRoutes = {
         {
           path: 'dashboard',
           children: [
+            {
+              path: 'kavachDashboard',
+              element: <KavachDashboard />
+            },
+            {
+              path: 'incidentDashboard',
+              element: <IncidentDashboard />
+            },
             {
               path: 'default',
               element: <DashboardDefault />

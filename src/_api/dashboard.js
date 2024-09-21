@@ -16,6 +16,20 @@ const dashboard = {
       icon: 'dashboardOutlined',
       children: [
         {
+          id: 'kavach',
+          title: 'kavach',
+          type: 'item',
+          url: '/dashboard/kavachDashboard',
+          breadcrumbs: false
+        },
+        {
+          id: 'incident',
+          title: 'incident',
+          type: 'item',
+          url: '/dashboard/incidentDashboard',
+          breadcrumbs: false
+        },
+        {
           id: 'default',
           title: 'default',
           type: 'item',
